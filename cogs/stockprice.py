@@ -19,10 +19,10 @@ class StockPrice(commands.Cog):
                 if len(message.content.split(" ")) == 2:
                     ticker = message.content.split(" ")[1]
                     price = self.get_stock_price(ticker)
-                    await message.channel.send(f"stock proce of {ticker} is {price}")
+                    await message.channel.send(f"stock price of {ticker} is {price}")
 
             except(Exception):
-                await message.channel.send(f"Nose que concha es {ticker} ")
+                await message.channel.send(f"Parece que {ticker} No es un nombre reconocible ")
 
 
 def setup(client):

@@ -1,3 +1,5 @@
+import datetime
+
 import discord
 from dotenv import load_dotenv
 from discord.ext import commands
@@ -15,7 +17,7 @@ class CustomHelpCommand(commands.HelpCommand):
     async def send_group_help(self, group):
         return await self.get_destination().send(f'{group.name}:{[command.name for index,command in enumerate(group.commands)]}')
     async def send_command_help(self, command):
-        return await self.get_destination().send(command.name)
+        return await self.get_destination().send(command.name, "parametros",command.params)
 
 
 client = commands.Bot(command_prefix = get_prefix,help_command=CustomHelpCommand())
@@ -37,6 +39,12 @@ async def unload(ctx,extension):
 async def reload(ctx,extension):
     client.unload_extension(f'cogs.{extension}')
     client.load_extension(f'cogs.{extension}')
+
+
+
+
+
+
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):

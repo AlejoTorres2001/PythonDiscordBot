@@ -1,3 +1,5 @@
+import datetime
+
 import discord
 from discord.ext import commands
 
@@ -9,9 +11,9 @@ class Sys(commands.Cog):
     def soyYo(self,ctx):
         return ctx.author.id == 470679833844776972
     @commands.command()
-    async def clear(self,ctx, amount:int,):
+    async def clear(self,ctx,amount:int,):
         if(self.soyYo(ctx)):
-            await ctx.channel.purge(limit=amount)
+            await ctx.channel.purge(limit=amount+1)
         else:
             await ctx.send("No tienes permiso de hacer eso")
 
@@ -50,6 +52,15 @@ class Sys(commands.Cog):
         await ctx.send(f"Bienvenido{member}!")
         print(f"{member} has joined the server")
 
+    @commands.command()
+    async def info(self,ctx):
+        embed = discord.Embed(title=f"{ctx.guild.name}", description="detalles del servidor",
+                              color=0xFF5733)
+        embed.add_field(name="Fecha de creacion", value=f"{ctx.guild.created_at}")
+        embed.add_field(name="Dueño del Server", value=f"{ctx.guild.owner}")
+        embed.add_field(name="Region del Server", value=f"{ctx.guild.region}")
+        embed.add_field(name="ID del server", value=f"{ctx.guild.id}")
+        await ctx.send(embed=embed)
     """Error Handling"""
     @clear.error
     async def clear_error(self,ctx, error):
